@@ -1,0 +1,27 @@
+.DS_Store
+.build/
+.codex/
+dist/
+bin/
+obj/
+*.user
+*.suo
+*.swp
+*.tmp
+*.log
+
+# Local data, credentials and release output
+.release/
+.env
+.env.*
+!.env.example
+.vs/
+.idea/
+.vscode/
+cache/
+settings.json
+entries.json
+*.pfx
+*.p12
+*.pem
+*.key

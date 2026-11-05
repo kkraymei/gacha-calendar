@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>GachaCalendar.Core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Catalog/games.json" LogicalName="GachaCalendar.games.json" />
+    <InternalsVisibleTo Include="GachaCalendar.Tests" />
+    <InternalsVisibleTo Include="GachaCalendar.Audit" />
+  </ItemGroup>
+</Project>

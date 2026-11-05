@@ -1,0 +1,127 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GachaCalendar.App.App"
+             RequestedThemeVariant="Default">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <SolidColorBrush x:Key="GcBg" Color="#F5F6FA" />
+          <SolidColorBrush x:Key="GcSide" Color="#ECEEF5" />
+          <SolidColorBrush x:Key="GcPanel" Color="#FFFFFF" />
+          <SolidColorBrush x:Key="GcHover" Color="#E3E6F0" />
+          <SolidColorBrush x:Key="GcLine" Color="#DDE1EA" />
+          <SolidColorBrush x:Key="GcGrid" Color="#EEF0F5" />
+          <SolidColorBrush x:Key="GcWeekend" Color="#F7F8FB" />
+          <SolidColorBrush x:Key="GcText" Color="#1D2230" />
+          <SolidColorBrush x:Key="GcSub" Color="#6A7285" />
+          <SolidColorBrush x:Key="GcAccent" Color="#5B6CF0" />
+          <SolidColorBrush x:Key="GcAccentSoft" Color="#E6E9FD" />
+          <SolidColorBrush x:Key="GcToday" Color="#E5484D" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <SolidColorBrush x:Key="GcBg" Color="#16181F" />
+          <SolidColorBrush x:Key="GcSide" Color="#1C1F28" />
+          <SolidColorBrush x:Key="GcPanel" Color="#20232D" />
+          <SolidColorBrush x:Key="GcHover" Color="#2A2E3A" />
+          <SolidColorBrush x:Key="GcLine" Color="#30343F" />
+          <SolidColorBrush x:Key="GcGrid" Color="#242733" />
+          <SolidColorBrush x:Key="GcWeekend" Color="#1A1C24" />
+          <SolidColorBrush x:Key="GcText" Color="#E7E9F0" />
+          <SolidColorBrush x:Key="GcSub" Color="#9097A8" />
+          <SolidColorBrush x:Key="GcAccent" Color="#8391FF" />
+          <SolidColorBrush x:Key="GcAccentSoft" Color="#2C3156" />
+          <SolidColorBrush x:Key="GcToday" Color="#FF6B6F" />
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+      <FontFamily x:Key="GcFont">Microsoft YaHei UI, PingFang SC, Hiragino Sans GB, Noto Sans CJK SC, Segoe UI, Malgun Gothic, Apple SD Gothic Neo</FontFamily>
+    </ResourceDictionary>
+  </Application.Resources>
+
+  <Application.Styles>
+    <FluentTheme />
+    <Style Selector=":is(Window)">
+      <Setter Property="FontFamily" Value="{StaticResource GcFont}" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="Background" Value="{DynamicResource GcBg}" />
+      <Setter Property="Foreground" Value="{DynamicResource GcText}" />
+    </Style>
+    <Style Selector="TextBlock.sub">
+      <Setter Property="Foreground" Value="{DynamicResource GcSub}" />
+      <Setter Property="FontSize" Value="12" />
+    </Style>
+    <Style Selector="TextBlock.h1">
+      <Setter Property="FontSize" Value="18" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="TextBlock.section">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource GcSub}" />
+      <Setter Property="Margin" Value="4,14,0,6" />
+    </Style>
+    <Style Selector="Button.flat">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="10,6" />
+      <Setter Property="CornerRadius" Value="6" />
+    </Style>
+    <Style Selector="Button.flat:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource GcHover}" />
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="{DynamicResource GcAccent}" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="CornerRadius" Value="6" />
+      <Setter Property="Padding" Value="14,6" />
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource GcAccent}" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="Opacity" Value="0.9" />
+    </Style>
+    <Style Selector="ToggleButton.chip">
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="Padding" Value="10,3" />
+      <Setter Property="Margin" Value="0,0,6,0" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="{DynamicResource GcLine}" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="ToggleButton.chip:checked /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource GcAccentSoft}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource GcAccent}" />
+      <Setter Property="Foreground" Value="{DynamicResource GcText}" />
+    </Style>
+    <Style Selector="ListBox.plain">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="ListBox.plain ListBoxItem">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Margin" Value="0,1" />
+      <Setter Property="CornerRadius" Value="6" />
+    </Style>
+    <Style Selector="ListBox.plain ListBoxItem:selected /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource GcAccentSoft}" />
+    </Style>
+    <Style Selector="ListBox.plain ListBoxItem:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource GcHover}" />
+    </Style>
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="{DynamicResource GcPanel}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource GcLine}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="Border.badge">
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Padding" Value="6,1" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.badge > TextBlock">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+  </Application.Styles>
+</Application>

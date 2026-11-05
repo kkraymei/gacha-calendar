@@ -1,0 +1,797 @@
+{
+  "version": 1,
+  "defaults": [
+    "genshin/cn",
+    "starrail/cn",
+    "zenless/cn",
+    "honkai3/cn",
+    "arknights/cn",
+    "endfield/cn",
+    "wuwa/cn",
+    "pgr/cn",
+    "gf2/cn",
+    "fgo/cn",
+    "nikke/global-en",
+    "azurlane/cn"
+  ],
+  "games": [
+    {
+      "id": "genshin",
+      "name": "原神",
+      "publisher": "米哈游 / HoYoverse",
+      "color": "#4E7CF6",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://hk4e-ann-api.mihoyo.com/common/hk4e_cn/announcement/api/getAnnList?game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000",
+              "join": {
+                "url": "https://hk4e-ann-api.mihoyo.com/common/hk4e_cn/announcement/api/getAnnContent?game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://ys.mihoyo.com/main/news"
+            },
+            {
+              "name": "米游社",
+              "url": "https://bbs-api.miyoushe.com/post/wapi/getForumPostList?forum_id=28&gids=2&page_size=50",
+              "page": "https://www.miyoushe.com/ys/article/{post_id}"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-hk4e-api.hoyoverse.com/common/hk4e_global/announcement/api/getAnnList?game=hk4e&game_biz=hk4e_global&lang=en&bundle_id=hk4e_global&platform=pc&region=os_usa&level=55&uid=100000000",
+              "join": {
+                "url": "https://sg-hk4e-api.hoyoverse.com/common/hk4e_global/announcement/api/getAnnContent?game=hk4e&game_biz=hk4e_global&lang=en&bundle_id=hk4e_global&platform=pc&region=os_usa&level=55&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://genshin.hoyoverse.com/en/news"
+            },
+            {
+              "name": "官网新闻",
+              "url": "https://sg-public-api-static.hoyoverse.com/content_v2_user/app/a1b1f9d3315447cc/getContentList?iAppId=32&iChanId=395&iPageSize=30&iPage=1&sLangKey=en-us",
+              "startIsPublished": true,
+              "page": "https://genshin.hoyoverse.com/en/news/detail/{iInfoId}"
+            }
+          ]
+        },
+        {
+          "id": "global-tw",
+          "name": "国际服 · 繁中",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-hk4e-api.hoyoverse.com/common/hk4e_global/announcement/api/getAnnList?game=hk4e&game_biz=hk4e_global&lang=zh-tw&bundle_id=hk4e_global&platform=pc&region=os_cht&level=55&uid=100000000",
+              "join": {
+                "url": "https://sg-hk4e-api.hoyoverse.com/common/hk4e_global/announcement/api/getAnnContent?game=hk4e&game_biz=hk4e_global&lang=zh-tw&bundle_id=hk4e_global&platform=pc&region=os_cht&level=55&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://genshin.hoyoverse.com/en/news"
+            }
+          ]
+        },
+        {
+          "id": "global-ja",
+          "name": "国际服 · 日本語",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-hk4e-api.hoyoverse.com/common/hk4e_global/announcement/api/getAnnList?game=hk4e&game_biz=hk4e_global&lang=ja&bundle_id=hk4e_global&platform=pc&region=os_asia&level=55&uid=100000000",
+              "join": {
+                "url": "https://sg-hk4e-api.hoyoverse.com/common/hk4e_global/announcement/api/getAnnContent?game=hk4e&game_biz=hk4e_global&lang=ja&bundle_id=hk4e_global&platform=pc&region=os_asia&level=55&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://genshin.hoyoverse.com/en/news"
+            }
+          ]
+        },
+        {
+          "id": "global-ko",
+          "name": "国际服 · 한국어",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-hk4e-api.hoyoverse.com/common/hk4e_global/announcement/api/getAnnList?game=hk4e&game_biz=hk4e_global&lang=ko&bundle_id=hk4e_global&platform=pc&region=os_asia&level=55&uid=100000000",
+              "join": {
+                "url": "https://sg-hk4e-api.hoyoverse.com/common/hk4e_global/announcement/api/getAnnContent?game=hk4e&game_biz=hk4e_global&lang=ko&bundle_id=hk4e_global&platform=pc&region=os_asia&level=55&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://genshin.hoyoverse.com/en/news"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "starrail",
+      "name": "崩坏：星穹铁道",
+      "publisher": "米哈游 / HoYoverse",
+      "color": "#8B6CF0",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://hkrpg-api.mihoyo.com/common/hkrpg_cn/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&bundle_id=hkrpg_cn&platform=pc&region=prod_gf_cn&level=70&uid=100000000",
+              "join": {
+                "url": "https://hkrpg-api.mihoyo.com/common/hkrpg_cn/announcement/api/getAnnContent?game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&bundle_id=hkrpg_cn&platform=pc&region=prod_gf_cn&level=70&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://sr.mihoyo.com/news"
+            },
+            {
+              "name": "米游社",
+              "url": "https://bbs-api.miyoushe.com/post/wapi/getForumPostList?forum_id=53&gids=6&page_size=50",
+              "page": "https://www.miyoushe.com/sr/article/{post_id}"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-hkrpg-api.hoyoverse.com/common/hkrpg_global/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_global&lang=en&bundle_id=hkrpg_global&platform=pc&region=prod_official_usa&level=70&uid=100000000",
+              "join": {
+                "url": "https://sg-hkrpg-api.hoyoverse.com/common/hkrpg_global/announcement/api/getAnnContent?game=hkrpg&game_biz=hkrpg_global&lang=en&bundle_id=hkrpg_global&platform=pc&region=prod_official_usa&level=70&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://hsr.hoyoverse.com/en-us/news"
+            },
+            {
+              "name": "官网新闻",
+              "url": "https://sg-public-api-static.hoyoverse.com/content_v2_user/app/113fe6d3b4514cdd/getContentList?iChanId=248&iPageSize=30&iPage=1&sLangKey=en-us",
+              "startIsPublished": true,
+              "page": "https://hsr.hoyoverse.com/en-us/news/{iInfoId}"
+            }
+          ]
+        },
+        {
+          "id": "global-tw",
+          "name": "国际服 · 繁中",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-hkrpg-api.hoyoverse.com/common/hkrpg_global/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_global&lang=zh-tw&bundle_id=hkrpg_global&platform=pc&region=prod_official_cht&level=70&uid=100000000",
+              "join": {
+                "url": "https://sg-hkrpg-api.hoyoverse.com/common/hkrpg_global/announcement/api/getAnnContent?game=hkrpg&game_biz=hkrpg_global&lang=zh-tw&bundle_id=hkrpg_global&platform=pc&region=prod_official_cht&level=70&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://hsr.hoyoverse.com/en-us/news"
+            }
+          ]
+        },
+        {
+          "id": "global-ja",
+          "name": "国际服 · 日本語",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-hkrpg-api.hoyoverse.com/common/hkrpg_global/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_global&lang=ja&bundle_id=hkrpg_global&platform=pc&region=prod_official_asia&level=70&uid=100000000",
+              "join": {
+                "url": "https://sg-hkrpg-api.hoyoverse.com/common/hkrpg_global/announcement/api/getAnnContent?game=hkrpg&game_biz=hkrpg_global&lang=ja&bundle_id=hkrpg_global&platform=pc&region=prod_official_asia&level=70&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://hsr.hoyoverse.com/en-us/news"
+            }
+          ]
+        },
+        {
+          "id": "global-ko",
+          "name": "国际服 · 한국어",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-hkrpg-api.hoyoverse.com/common/hkrpg_global/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_global&lang=ko&bundle_id=hkrpg_global&platform=pc&region=prod_official_asia&level=70&uid=100000000",
+              "join": {
+                "url": "https://sg-hkrpg-api.hoyoverse.com/common/hkrpg_global/announcement/api/getAnnContent?game=hkrpg&game_biz=hkrpg_global&lang=ko&bundle_id=hkrpg_global&platform=pc&region=prod_official_asia&level=70&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://hsr.hoyoverse.com/en-us/news"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zenless",
+      "name": "绝区零",
+      "publisher": "米哈游 / HoYoverse",
+      "color": "#F2A93B",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://announcement-api.mihoyo.com/common/nap_cn/announcement/api/getAnnList?game=nap&game_biz=nap_cn&lang=zh-cn&bundle_id=nap_cn&platform=pc&region=prod_gf_cn&level=60&uid=100000000",
+              "join": {
+                "url": "https://announcement-api.mihoyo.com/common/nap_cn/announcement/api/getAnnContent?game=nap&game_biz=nap_cn&lang=zh-cn&bundle_id=nap_cn&platform=pc&region=prod_gf_cn&level=60&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://zzz.mihoyo.com/news"
+            },
+            {
+              "name": "米游社",
+              "url": "https://bbs-api.miyoushe.com/post/wapi/getForumPostList?forum_id=58&gids=8&page_size=50",
+              "page": "https://www.miyoushe.com/zzz/article/{post_id}"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-announcement-static.hoyoverse.com/common/nap_global/announcement/api/getAnnList?game=nap&game_biz=nap_global&lang=en&bundle_id=nap_global&platform=pc&region=prod_gf_us&level=60&uid=100000000",
+              "join": {
+                "url": "https://sg-announcement-static.hoyoverse.com/common/nap_global/announcement/api/getAnnContent?game=nap&game_biz=nap_global&lang=en&bundle_id=nap_global&platform=pc&region=prod_gf_us&level=60&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://zenless.hoyoverse.com/en-us/news"
+            },
+            {
+              "name": "官网新闻",
+              "url": "https://sg-public-api-static.hoyoverse.com/content_v2_user/app/3e9196a4b9274bd7/getContentList?iChanId=288&iPageSize=30&iPage=1&sLangKey=en-us",
+              "startIsPublished": true,
+              "page": "https://zenless.hoyoverse.com/en-us/news/{iInfoId}"
+            }
+          ]
+        },
+        {
+          "id": "global-tw",
+          "name": "国际服 · 繁中",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-announcement-static.hoyoverse.com/common/nap_global/announcement/api/getAnnList?game=nap&game_biz=nap_global&lang=zh-tw&bundle_id=nap_global&platform=pc&region=prod_gf_sg&level=60&uid=100000000",
+              "join": {
+                "url": "https://sg-announcement-static.hoyoverse.com/common/nap_global/announcement/api/getAnnContent?game=nap&game_biz=nap_global&lang=zh-tw&bundle_id=nap_global&platform=pc&region=prod_gf_sg&level=60&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://zenless.hoyoverse.com/en-us/news"
+            }
+          ]
+        },
+        {
+          "id": "global-ja",
+          "name": "国际服 · 日本語",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-announcement-static.hoyoverse.com/common/nap_global/announcement/api/getAnnList?game=nap&game_biz=nap_global&lang=ja&bundle_id=nap_global&platform=pc&region=prod_gf_jp&level=60&uid=100000000",
+              "join": {
+                "url": "https://sg-announcement-static.hoyoverse.com/common/nap_global/announcement/api/getAnnContent?game=nap&game_biz=nap_global&lang=ja&bundle_id=nap_global&platform=pc&region=prod_gf_jp&level=60&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://zenless.hoyoverse.com/en-us/news"
+            }
+          ]
+        },
+        {
+          "id": "global-ko",
+          "name": "国际服 · 한국어",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://sg-announcement-static.hoyoverse.com/common/nap_global/announcement/api/getAnnList?game=nap&game_biz=nap_global&lang=ko&bundle_id=nap_global&platform=pc&region=prod_gf_sg&level=60&uid=100000000",
+              "join": {
+                "url": "https://sg-announcement-static.hoyoverse.com/common/nap_global/announcement/api/getAnnContent?game=nap&game_biz=nap_global&lang=ko&bundle_id=nap_global&platform=pc&region=prod_gf_sg&level=60&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://zenless.hoyoverse.com/en-us/news"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "honkai3",
+      "name": "崩坏3",
+      "publisher": "米哈游 / HoYoverse",
+      "color": "#E5487C",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://ann-api.mihoyo.com/common/bh3_cn/announcement/api/getAnnList?game=bh3&game_biz=bh3_cn&lang=zh-cn&bundle_id=bh3_cn&platform=pc&region=android01&level=88&uid=100000000",
+              "join": {
+                "url": "https://ann-api.mihoyo.com/common/bh3_cn/announcement/api/getAnnContent?game=bh3&game_biz=bh3_cn&lang=zh-cn&bundle_id=bh3_cn&platform=pc&region=android01&level=88&uid=100000000",
+                "key": "ann_id"
+              },
+              "startIsPublished": true,
+              "page": "https://www.bh3.com/news"
+            },
+            {
+              "name": "米游社",
+              "url": "https://bbs-api.miyoushe.com/post/wapi/getForumPostList?forum_id=6&gids=1&page_size=50",
+              "page": "https://www.miyoushe.com/bh3/article/{post_id}"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://sg-public-api-static.hoyoverse.com/content_v2_user/app/5fcd2aa439ca4aea/getContentList?iChanId=514&iPageSize=30&iPage=1&sLangKey=en-us",
+              "startIsPublished": true,
+              "page": "https://honkaiimpact3.hoyoverse.com/global/en-us/news/{iInfoId}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arknights",
+      "name": "明日方舟",
+      "publisher": "鹰角网络 / Yostar",
+      "color": "#7A8BA6",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://ak-webview.hypergryph.com/api/game/bulletinList?target=Android",
+              "detail": {
+                "url": "https://ak-webview.hypergryph.com/api/game/bulletin/{cid}"
+              },
+              "page": "https://ak.hypergryph.com/news"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://ark-us-static-online.yo-star.com/announce/Android/announcement.meta.json",
+              "detail": {
+                "url": "{webUrl}"
+              },
+              "page": "{webUrl}"
+            }
+          ]
+        },
+        {
+          "id": "jp",
+          "name": "日服",
+          "sources": [
+            {
+              "name": "游戏内公告",
+              "url": "https://ark-jp-static-online.yo-star.com/announce/Android/announcement.meta.json",
+              "detail": {
+                "url": "{webUrl}"
+              },
+              "page": "{webUrl}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "endfield",
+      "name": "明日方舟：终末地",
+      "publisher": "鹰角网络 / GRYPHLINE",
+      "color": "#D9B627",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://endfield.hypergryph.com/news",
+              "page": "https://endfield.hypergryph.com/news/{cid}",
+              "detail": {
+                "url": "https://endfield.hypergryph.com/news/{cid}"
+              }
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://endfield.gryphline.com/en-us/news",
+              "page": "https://endfield.gryphline.com/en-us/news/{cid}"
+            }
+          ]
+        },
+        {
+          "id": "global-tw",
+          "name": "国际服 · 繁中",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://endfield.gryphline.com/zh-tw/news",
+              "page": "https://endfield.gryphline.com/zh-tw/news/{cid}"
+            }
+          ]
+        },
+        {
+          "id": "global-ja",
+          "name": "国际服 · 日本語",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://endfield.gryphline.com/ja-jp/news",
+              "page": "https://endfield.gryphline.com/ja-jp/news/{cid}"
+            }
+          ]
+        },
+        {
+          "id": "global-ko",
+          "name": "国际服 · 한국어",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://endfield.gryphline.com/ko-kr/news",
+              "page": "https://endfield.gryphline.com/ko-kr/news/{cid}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wuwa",
+      "name": "鸣潮",
+      "publisher": "库洛游戏",
+      "color": "#3FB6A8",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/zh/ArticleMenu.json",
+              "detail": {
+                "url": "https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/zh/article/{articleId}.json"
+              },
+              "startIsPublished": true,
+              "page": "https://mc.kurogame.com/main/news/detail/{articleId}"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/en/ArticleMenu.json",
+              "detail": {
+                "url": "https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/en/article/{articleId}.json"
+              },
+              "startIsPublished": true,
+              "page": "https://wutheringwaves.kurogames.com/en/main/news/detail/{articleId}"
+            }
+          ]
+        },
+        {
+          "id": "global-tw",
+          "name": "国际服 · 繁中",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/zh-tw/ArticleMenu.json",
+              "detail": {
+                "url": "https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/zh-tw/article/{articleId}.json"
+              },
+              "startIsPublished": true,
+              "page": "https://wutheringwaves.kurogames.com/zh-tw/main/news/detail/{articleId}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pgr",
+      "name": "战双帕弥什",
+      "publisher": "库洛游戏",
+      "color": "#C0392B",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://media-cdn-zspms.kurogame.com/pnswebsite/website2.0/json/G144/MainMenu.json",
+              "detail": {
+                "url": "https://media-cdn-zspms.kurogame.com/pnswebsite/website2.0/json/G144/article/{articleId}.json"
+              },
+              "startIsPublished": true,
+              "page": "https://pns.kurogames.com/news/{articleId}"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://media-cdn-zspms.kurogame.net/pnswebsite/website2.0/json/G167/MainMenu.json",
+              "detail": {
+                "url": "https://media-cdn-zspms.kurogame.net/pnswebsite/website2.0/json/G167/article/{articleId}.json"
+              },
+              "startIsPublished": true,
+              "page": "https://pgr.kurogame.net/news/{articleId}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gf2",
+      "name": "少女前线2：追放",
+      "publisher": "散爆网络 / Sunborn",
+      "color": "#E67E22",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://gf2-web-preregister-api.sunborngame.com/website/news_list/0?page=1&limit=30",
+              "detail": {
+                "url": "https://gf2-web-preregister-api.sunborngame.com/website/news/{Id}"
+              },
+              "page": "https://gf2.sunborngame.com/NewsInfo?id={Id}"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://gf2-web-us-api.sunborngame.com/website/news_list/0?page=1&limit=30",
+              "detail": {
+                "url": "https://gf2-web-us-api.sunborngame.com/website/news/{Id}"
+              },
+              "page": "https://gf2exilium.sunborngame.com/NewsInfo?id={Id}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fgo",
+      "name": "Fate/Grand Order",
+      "publisher": "TYPE-MOON / Aniplex / B站",
+      "color": "#2B5BA8",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "B站官网公告",
+              "url": "https://api.biligame.com/news/list.action?gameExtensionId=45&positionId=2&pageNum=1&pageSize=30&isNew=1",
+              "detail": {
+                "url": "https://api.biligame.com/news/{id}.action"
+              },
+              "page": "https://game.bilibili.com/fgo/news/?news_detail_id={id}"
+            }
+          ]
+        },
+        {
+          "id": "jp",
+          "name": "日服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://news.fate-go.jp/"
+            }
+          ]
+        },
+        {
+          "id": "na",
+          "name": "美服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://webview.fate-go.us/"
+            }
+          ]
+        },
+        {
+          "id": "tw",
+          "name": "台服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://www.fate-go.com.tw/newsmng/index.json",
+              "detail": {
+                "url": "https://www.fate-go.com.tw/newsmng/{id}.json"
+              },
+              "page": "https://www.fate-go.com.tw/news.html#!news/0/1/{id}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nikke",
+      "name": "胜利女神：NIKKE",
+      "publisher": "SHIFT UP / Level Infinite",
+      "color": "#E84393",
+      "regions": [
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://na-community.playerinfinite.com/api/gpts.information_feeds_svr.InformationFeedsSvr/GetContentByLabel",
+              "method": "POST",
+              "headers": {
+                "X-GameId": "16",
+                "X-AreaId": "na",
+                "X-Source": "pc_web",
+                "X-Language": "en"
+              },
+              "body": "{\"gameid\": \"16\", \"language\": [\"en\"], \"offset\": 0, \"get_num\": 30, \"primary_label_id\": 309, \"secondary_label_id\": 0}",
+              "detail": {
+                "url": "https://na-community.playerinfinite.com/api/gpts.information_feeds_svr.InformationFeedsSvr/GetContentInfoById",
+                "method": "POST",
+                "headers": {
+                  "X-GameId": "16",
+                  "X-AreaId": "na",
+                  "X-Source": "pc_web",
+                  "X-Language": "en"
+                },
+                "body": "{\"content_id\": \"{content_id}\", \"language\": [\"en\"], \"gameid\": \"16\"}"
+              },
+              "page": "https://nikke-en.com/newsdetail.html?content_id={content_id}"
+            }
+          ]
+        },
+        {
+          "id": "jp",
+          "name": "日服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://na-community.playerinfinite.com/api/gpts.information_feeds_svr.InformationFeedsSvr/GetContentByLabel",
+              "method": "POST",
+              "headers": {
+                "X-GameId": "16",
+                "X-AreaId": "na",
+                "X-Source": "pc_web",
+                "X-Language": "ja"
+              },
+              "body": "{\"gameid\": \"16\", \"language\": [\"ja\"], \"offset\": 0, \"get_num\": 30, \"primary_label_id\": 309, \"secondary_label_id\": 0}",
+              "detail": {
+                "url": "https://na-community.playerinfinite.com/api/gpts.information_feeds_svr.InformationFeedsSvr/GetContentInfoById",
+                "method": "POST",
+                "headers": {
+                  "X-GameId": "16",
+                  "X-AreaId": "na",
+                  "X-Source": "pc_web",
+                  "X-Language": "ja"
+                },
+                "body": "{\"content_id\": \"{content_id}\", \"language\": [\"ja\"], \"gameid\": \"16\"}"
+              },
+              "page": "https://nikke-jp.com/newsdetail.html?content_id={content_id}"
+            }
+          ]
+        },
+        {
+          "id": "kr",
+          "name": "韩服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://na-community.playerinfinite.com/api/gpts.information_feeds_svr.InformationFeedsSvr/GetContentByLabel",
+              "method": "POST",
+              "headers": {
+                "X-GameId": "16",
+                "X-AreaId": "na",
+                "X-Source": "pc_web",
+                "X-Language": "ko"
+              },
+              "body": "{\"gameid\": \"16\", \"language\": [\"ko\"], \"offset\": 0, \"get_num\": 30, \"primary_label_id\": 309, \"secondary_label_id\": 0}",
+              "detail": {
+                "url": "https://na-community.playerinfinite.com/api/gpts.information_feeds_svr.InformationFeedsSvr/GetContentInfoById",
+                "method": "POST",
+                "headers": {
+                  "X-GameId": "16",
+                  "X-AreaId": "na",
+                  "X-Source": "pc_web",
+                  "X-Language": "ko"
+                },
+                "body": "{\"content_id\": \"{content_id}\", \"language\": [\"ko\"], \"gameid\": \"16\"}"
+              },
+              "page": "https://www.nikke-kr.com/newsdetail.html?content_id={content_id}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "azurlane",
+      "name": "碧蓝航线",
+      "publisher": "蛮啾网络 / B站 / Yostar",
+      "color": "#2D9CDB",
+      "regions": [
+        {
+          "id": "cn",
+          "name": "国服",
+          "sources": [
+            {
+              "name": "B站官网公告",
+              "url": "https://api.biligame.com/news/list.action?gameExtensionId=103&positionId=2&pageNum=1&pageSize=30&isNew=1",
+              "detail": {
+                "url": "https://api.biligame.com/news/{id}.action"
+              },
+              "page": "https://game.bilibili.com/blhx/news/?news_detail_id={id}"
+            }
+          ]
+        },
+        {
+          "id": "jp",
+          "name": "日服",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://azurlane.jp/api/news/list?index=1&size=20&type=0",
+              "page": "https://azurlane.jp/news"
+            }
+          ]
+        },
+        {
+          "id": "global-en",
+          "name": "国际服 · English",
+          "sources": [
+            {
+              "name": "官网新闻",
+              "url": "https://azurlane.yo-star.com/news/feed/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

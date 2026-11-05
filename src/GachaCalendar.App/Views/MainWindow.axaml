@@ -1,0 +1,246 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GachaCalendar.App.ViewModels"
+        xmlns:c="using:GachaCalendar.App.Controls"
+        xmlns:core="using:GachaCalendar.Core"
+        x:Class="GachaCalendar.App.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Gacha Calendar · 游戏活动日历"
+        Icon="/Assets/app.ico"
+        Width="1320" Height="820" MinWidth="980" MinHeight="580"
+        WindowStartupLocation="CenterScreen">
+  <Window.Styles>
+    <Style Selector="Grid.done">
+      <Setter Property="Opacity" Value="0.45" />
+    </Style>
+    <Style Selector="Button.all">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.all.on">
+      <Setter Property="Background" Value="{DynamicResource GcAccentSoft}" />
+    </Style>
+    <Style Selector="RadioButton.seg">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="bd" Background="Transparent" CornerRadius="6" Padding="12,5">
+            <ContentPresenter Content="{TemplateBinding Content}" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="RadioButton.seg:checked /template/ Border#bd">
+      <Setter Property="Background" Value="{DynamicResource GcPanel}" />
+    </Style>
+    <Style Selector="RadioButton.seg:pointerover /template/ Border#bd">
+      <Setter Property="Background" Value="{DynamicResource GcHover}" />
+    </Style>
+  </Window.Styles>
+
+  <Grid ColumnDefinitions="232,*">
+    <!-- Sidebar: followed games -->
+    <Border Background="{DynamicResource GcSide}" BorderBrush="{DynamicResource GcLine}" BorderThickness="0,0,1,0">
+      <DockPanel Margin="10,14,10,10">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="9" Margin="6,0,0,14">
+          <Image Source="/Assets/icon.png" Width="28" Height="28" />
+          <TextBlock Text="游戏活动日历" Classes="h1" VerticalAlignment="Center" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Spacing="2" Margin="0,8,0,0">
+          <Button Classes="flat" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="OnAddGame">＋  添加游戏 / 区服</Button>
+          <Button Classes="flat" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="OnSettings">⚙  设置</Button>
+        </StackPanel>
+        <Button DockPanel.Dock="Top" Classes="flat all" Classes.on="{Binding Focus, Converter={x:Static ObjectConverters.IsNull}}" Command="{Binding ShowAllCommand}">
+          ◎  全部游戏
+        </Button>
+        <TextBlock DockPanel.Dock="Top" Classes="section" Text="关注的游戏（勾选显示在“全部”中，右键编辑）" TextWrapping="Wrap" />
+        <ListBox Classes="plain" ItemsSource="{Binding Games}" SelectedItem="{Binding Focus}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:GameItem">
+              <Grid ColumnDefinitions="Auto,*,Auto,Auto" Margin="4,4,8,4" Background="Transparent" ToolTip.Tip="{Binding Tip}">
+                <Grid.ContextMenu>
+                  <ContextMenu>
+                    <MenuItem Header="编辑公告来源…" Click="OnEditSources" />
+                    <MenuItem Header="上移" Click="OnMoveUp" />
+                    <MenuItem Header="下移" Click="OnMoveDown" />
+                    <Separator />
+                    <MenuItem Header="移除" Click="OnRemoveGame" />
+                  </ContextMenu>
+                </Grid.ContextMenu>
+                <CheckBox IsChecked="{Binding Visible}" MinWidth="0" Padding="0" Margin="0,0,6,0" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                  <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" FontWeight="SemiBold" />
+                  <TextBlock Text="{Binding Region}" Classes="sub" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <TextBlock Grid.Column="2" Text="⚠" Foreground="{DynamicResource GcToday}" IsVisible="{Binding Failed}" VerticalAlignment="Center" Margin="4,0" />
+                <Border Grid.Column="3" Background="{Binding Brush}" CornerRadius="9" MinWidth="24" Height="18" VerticalAlignment="Center">
+                  <TextBlock Text="{Binding Count}" Foreground="White" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0" />
+                </Border>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
+    </Border>
+
+    <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*" ColumnDefinitions="*,Auto">
+      <!-- Title and actions -->
+      <DockPanel Grid.ColumnSpan="2" Margin="18,14,18,6" LastChildFill="True">
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+          <TextBox Text="{Binding Search}" Watermark="搜索活动或游戏" Width="200" />
+          <Border Background="{DynamicResource GcSide}" CornerRadius="8" Padding="3">
+            <StackPanel Orientation="Horizontal">
+              <RadioButton Classes="seg" GroupName="view" IsChecked="{Binding IsTimeline}" Content="时间轴" />
+              <RadioButton Classes="seg" GroupName="view" IsChecked="{Binding IsList}" Content="列表" />
+            </StackPanel>
+          </Border>
+          <Button Classes="flat" Click="OnToday" IsVisible="{Binding IsTimeline}" ToolTip.Tip="回到今天（Home）">今天</Button>
+          <Button Classes="primary" Command="{Binding RefreshCommand}" ToolTip.Tip="重新获取所有来源的公告">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <TextBlock Text="⟳" />
+              <TextBlock Text="刷新" IsVisible="{Binding !Busy}" />
+              <TextBlock Text="{Binding Progress, StringFormat='获取中 {0}'}" IsVisible="{Binding Busy}" />
+            </StackPanel>
+          </Button>
+          <Button Classes="flat" Click="OnExport" ToolTip.Tip="把当前显示的条目导出为 .ics，可导入系统日历">导出日历</Button>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center">
+          <TextBlock Text="{Binding FocusTitle}" Classes="h1" />
+          <TextBlock Text="{Binding Summary}" Classes="sub" />
+        </StackPanel>
+      </DockPanel>
+
+      <!-- Filters -->
+      <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="18,4,18,10">
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+          <ComboBox IsVisible="{Binding IsList}" SelectedIndex="{Binding SortIndex}" MinWidth="120" FontSize="12" Margin="0">
+            <ComboBoxItem Content="按结束时间" />
+            <ComboBoxItem Content="最新开始" />
+            <ComboBoxItem Content="按游戏" />
+          </ComboBox>
+          <Button Classes="flat" Padding="6,2" Click="OnRestoreHidden" IsVisible="{Binding HasHidden}" Content="{Binding HiddenCount, StringFormat='已隐藏 {0} 条 · 恢复'}" />
+          <Button Classes="flat" Padding="6,2" Click="OnReports" Foreground="{DynamicResource GcToday}" IsVisible="{Binding HasFailed}" Content="{Binding Failed, StringFormat='⚠ {0} 个来源失败'}" />
+          <Button Classes="flat" Padding="6,2" Click="OnReports" Content="{Binding Status}" ToolTip.Tip="查看每个来源的获取情况" />
+        </StackPanel>
+        <WrapPanel VerticalAlignment="Center">
+          <ItemsControl ItemsSource="{Binding Kinds}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:KindFilter">
+                <ToggleButton Classes="chip" IsChecked="{Binding On}">
+                  <StackPanel Orientation="Horizontal" Spacing="6">
+                    <Ellipse Width="8" Height="8" Fill="{Binding Brush}" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Label}" />
+                  </StackPanel>
+                </ToggleButton>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+          <ToggleButton Classes="chip" IsChecked="{Binding Collab.On}">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Ellipse Width="8" Height="8" Fill="{Binding Collab.Brush}" VerticalAlignment="Center" />
+              <TextBlock Text="仅联动" />
+            </StackPanel>
+          </ToggleButton>
+          <Rectangle Width="1" Height="18" Fill="{DynamicResource GcLine}" Margin="6,0,12,0" VerticalAlignment="Center" />
+          <ToggleButton Classes="chip" IsChecked="{Binding OnlyStarred}" Content="★ 只看重点" />
+          <ToggleButton Classes="chip" IsChecked="{Binding ShowDone}" Content="显示已完成" />
+
+        </WrapPanel>
+      </DockPanel>
+
+      <!-- Timeline / list -->
+      <Border Grid.Row="2" Classes="card" Margin="18,0,18,18" ClipToBounds="True">
+        <Panel>
+          <c:TimelineView x:Name="Timeline" IsVisible="{Binding IsTimeline}" Rows="{Binding Rows}"
+                          DayWidth="{Binding DayWidth}" Selected="{Binding Selected}" />
+          <ListBox IsVisible="{Binding IsList}" Classes="plain" ItemsSource="{Binding Visible}" SelectedItem="{Binding Selected}"
+                   Margin="6" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="vm:EntryItem">
+                <Grid ColumnDefinitions="4,*,Auto" Classes.done="{Binding Done}" Background="Transparent">
+                  <Border Background="{Binding KindBrush}" CornerRadius="2" Margin="0,9" />
+                  <StackPanel Grid.Column="1" Margin="12,8,8,8" Spacing="4">
+                    <DockPanel>
+                      <TextBlock DockPanel.Dock="Left" Text="★ " Foreground="#F5B301" IsVisible="{Binding Starred}" FontWeight="SemiBold" />
+                      <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                    </DockPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                      <Ellipse Width="8" Height="8" Fill="{Binding Game.Brush}" VerticalAlignment="Center" />
+                      <TextBlock Classes="sub" Text="{Binding GameName}" />
+                      <TextBlock Classes="sub" Text="{Binding Region}" />
+                      <Border Classes="badge" Background="{Binding KindBrush}"><TextBlock Text="{Binding Kind}" /></Border>
+                      <Border Classes="badge" Background="#F97316" IsVisible="{Binding IsCollab}"><TextBlock Text="联动" /></Border>
+                      <Border Classes="badge" Background="#8C96AA" IsVisible="{Binding Uncertain}"><TextBlock Text="时间待确认" /></Border>
+                    </StackPanel>
+                  </StackPanel>
+                  <StackPanel Grid.Column="2" Margin="8,8,14,8" VerticalAlignment="Center" Spacing="3">
+                    <TextBlock Text="{Binding Remaining}" FontWeight="SemiBold" HorizontalAlignment="Right" />
+                    <TextBlock Text="{Binding ShortDates}" Classes="sub" HorizontalAlignment="Right" />
+                    <ProgressBar Value="{Binding Progress}" Maximum="1" Width="96" MinWidth="96" Height="3" MinHeight="3" HorizontalAlignment="Right" />
+                  </StackPanel>
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </Panel>
+      </Border>
+
+      <!-- Detail -->
+      <Border Grid.Row="2" Grid.Column="1" Classes="card" Width="360" Margin="0,0,18,18" IsVisible="{Binding HasSelection}">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Margin="18,14,18,18" Spacing="10">
+            <DockPanel>
+              <Button DockPanel.Dock="Right" Classes="flat" Padding="8,2" Content="✕" Click="OnCloseDetail" />
+              <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                <Ellipse Width="10" Height="10" Fill="{Binding Selected.Game.Brush}" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Selected.GameName}" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding Selected.Region}" Classes="sub" VerticalAlignment="Center" />
+              </StackPanel>
+            </DockPanel>
+            <SelectableTextBlock Text="{Binding Selected.Title}" FontSize="17" FontWeight="SemiBold" TextWrapping="Wrap" />
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Border Classes="badge" Background="{Binding Selected.KindBrush}"><TextBlock Text="{Binding Selected.Kind}" /></Border>
+              <Border Classes="badge" Background="#F97316" IsVisible="{Binding Selected.IsCollab}"><TextBlock Text="联动" /></Border>
+              <Border Classes="badge" Background="#8C96AA" IsVisible="{Binding Selected.Uncertain}"><TextBlock Text="时间待确认" /></Border>
+            </StackPanel>
+            <Border Background="{DynamicResource GcSide}" CornerRadius="8" Padding="12,10">
+              <StackPanel Spacing="6">
+                <TextBlock Text="{Binding Selected.Remaining}" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource GcAccent}" />
+                <TextBlock Text="{Binding Selected.Dates}" TextWrapping="Wrap" />
+                <ProgressBar Value="{Binding Selected.Progress}" Maximum="1" Height="4" MinHeight="4" />
+              </StackPanel>
+            </Border>
+            <WrapPanel>
+              <ToggleButton Classes="chip" IsChecked="{Binding Selected.Starred, Mode=OneWay}" Command="{Binding ToggleStarCommand}" CommandParameter="{Binding Selected}" Content="★ 重点" />
+              <ToggleButton Classes="chip" IsChecked="{Binding Selected.Done, Mode=OneWay}" Command="{Binding ToggleDoneCommand}" CommandParameter="{Binding Selected}" Content="✓ 已完成" />
+              <Button Classes="flat" Padding="10,3" FontSize="12" Command="{Binding HideCommand}" CommandParameter="{Binding Selected}" Content="隐藏" />
+            </WrapPanel>
+            <Button Classes="primary" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="打开原公告" Click="OnOpenEntry" />
+            <TextBlock Text="⚠ 各来源给出的日期不一致，请核对原公告" Foreground="{DynamicResource GcToday}" TextWrapping="Wrap" IsVisible="{Binding Selected.DateConflict}" />
+            <TextBlock Classes="sub" Text="{Binding Selected.Parent}" TextWrapping="Wrap" IsVisible="{Binding Selected.Parent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+            <TextBlock Classes="section" Text="公告来源" />
+            <ItemsControl ItemsSource="{Binding Selected.Origins}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="core:Origin">
+                  <Button Classes="flat" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="8,4" Tag="{Binding Url}" Click="OnOpenOrigin" ToolTip.Tip="{Binding Url}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                      <TextBlock Text="{Binding Source}" FontWeight="SemiBold" />
+                      <TextBlock Classes="sub" Text="{Binding Start, StringFormat='{}{0:MM/dd}'}" />
+                      <TextBlock Classes="sub" Text="–" />
+                      <TextBlock Classes="sub" Text="{Binding End, StringFormat='{}{0:MM/dd}'}" />
+                    </StackPanel>
+                  </Button>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Classes="section" Text="公告内容" />
+            <SelectableTextBlock Text="{Binding Selected.Summary}" TextWrapping="Wrap" LineHeight="20" />
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>
